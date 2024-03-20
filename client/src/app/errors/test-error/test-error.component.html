@@ -1,0 +1,26 @@
+<ng-container>
+  <button class="btn btn-outline-primary me-3" (click)="getUnauthorizedError()">
+    getUnauthorizedError
+  </button>
+  <button class="btn btn-outline-primary me-3" (click)="getForbiddenError()">
+    getForbiddenError
+  </button>
+  <button class="btn btn-outline-primary me-3" (click)="getNotFoundError()">
+    getNotFoundError
+  </button>
+  <button class="btn btn-outline-primary me-3" (click)="getBadRequestError()">
+    getBadRequestError
+  </button>
+  <button class="btn btn-outline-primary me-3" (click)="getServerError()">
+    getServerError
+  </button>
+  <button class="btn btn-outline-primary me-3" (click)="getValidationError()">
+    getValidationError
+  </button>
+</ng-container>
+
+<div class="row mt-5" *ngIf="validationErrors.length > 0">
+  <ul class="text-danger" *ngFor="let error of validationErrors">
+    {{ error }}
+  </ul>
+</div>
