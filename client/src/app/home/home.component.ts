@@ -9,7 +9,7 @@ import { AccountService } from '../_services/account.service';
 export class HomeComponent {
   registerMode = false;
 
-  constructor(private accountService: AccountService) {}
+  constructor() {}
 
   ngOnInit() {}
 
