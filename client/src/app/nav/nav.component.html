@@ -35,7 +35,12 @@
         Welcome, {{ user.userName | titlecase }}
       </a>
       <div class="dropdown-menu" *dropdownMenu>
-        <a class="dropdown-item text-decoration-none">Edit Profile</a>
+        <a
+          class="dropdown-item text-decoration-none"
+          routerLink="/member/edit"
+        >
+          Edit Profile
+        </a>
         <a class="dropdown-item text-decoration-none" (click)="logout()">
           Logout
         </a>
