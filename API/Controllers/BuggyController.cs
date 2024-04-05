@@ -1,9 +1,17 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using API.Interfaces;
+using Microsoft.AspNetCore.Mvc;
 
 namespace API.Controllers;
 
 public class BuggyController : BaseApiController
 {
+    private readonly IFileService _fileService;
+
+    public BuggyController(IFileService fileService)
+    {
+        _fileService = fileService;
+    }
+    
     [HttpGet("not-found")]
     public ActionResult GetNotFound()
     {
@@ -32,5 +40,25 @@ public class BuggyController : BaseApiController
     public ActionResult GetServerError()
     {
         throw new Exception();
+    }
+
+    [HttpPost("upload-file")]
+    public async Task<ActionResult> UploadFile(IFormFile formFile)
+    {
+        var guid = Guid.NewGuid();
+        var fileName = guid.ToString() + Path.GetExtension(formFile.FileName);
+
+        using var content = new MemoryStream();
+        formFile.CopyTo(content);
+
+        await _fileService.UploadFromContentAsync(fileName, content.ToArray());
+
+        return NoContent();
+    }
+
+    [HttpGet("download-file/{fileName}")]
+    public async Task<ActionResult> DownloadFile(string fileName)
+    {
+        return File(await _fileService.DownloadToContent(fileName), "application/octet-stream");
     }
 }

@@ -31,14 +31,12 @@
       dropdown
       *ngIf="accountService.currentUser$ | async as user"
     >
-      <a class="dropdown-toggle text-light text-decoration-none" dropdownToggle>
+      <img src="{{ user.photoUrl || './assets/user.png' }}" alt="avatar" />
+      <a class="dropdown-toggle text-light text-decoration-none ms-1" dropdownToggle>
         Welcome, {{ user.userName | titlecase }}
       </a>
       <div class="dropdown-menu" *dropdownMenu>
-        <a
-          class="dropdown-item text-decoration-none"
-          routerLink="/member/edit"
-        >
+        <a class="dropdown-item text-decoration-none" routerLink="/member/edit">
           Edit Profile
         </a>
         <a class="dropdown-item text-decoration-none" (click)="logout()">
