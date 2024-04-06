@@ -1,4 +1,5 @@
 using API;
+using API.Configs;
 using API.Data;
 using API.Extensions;
 using API.Middlewares;
@@ -11,6 +12,7 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddControllers();
 builder.Services.AddApplicationServices(builder.Configuration);
 builder.Services.AddIdentityServices(builder.Configuration);
+builder.Services.Configure<BlobStorageConfigs>(builder.Configuration.GetSection("BlobStorage"));
 
 var app = builder.Build();
 

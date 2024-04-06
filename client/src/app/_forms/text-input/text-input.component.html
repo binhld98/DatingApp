@@ -1,0 +1,23 @@
+<div class="mb-3">
+  <input
+    [type]="type"
+    class="form-control"
+    [class.is-invalid]="control.touched && control.invalid"
+    [formControl]="control"
+    [placeholder]="label"
+  />
+  <div class="invalid-feedback" *ngIf="control.hasError('required')">
+    Please enter a {{ label | lowercase }}
+  </div>
+  <div class="invalid-feedback" *ngIf="control.hasError('minlength')">
+    {{ label }} must be at lease
+    {{control.errors?.['minlength'].requiredLength}} digits
+  </div>
+  <div class="invalid-feedback" *ngIf="control.hasError('maxlength')">
+    {{ label }} must be at most
+    {{control.errors?.['maxlength'].requiredLength}} digits
+  </div>
+  <div class="invalid-feedback" *ngIf="!control.hasError('required') && control.hasError('notMatching')">
+    {{ label }} does not match
+  </div>
+</div>

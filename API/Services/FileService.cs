@@ -1,8 +1,10 @@
 ﻿using System.Diagnostics;
+using API.Configs;
 using API.Interfaces;
 using Azure;
 using Azure.Storage.Blobs;
 using Azure.Storage.Blobs.Models;
+using Microsoft.Extensions.Options;
 
 namespace API.Services;
 
@@ -12,11 +14,11 @@ public class FileService : IFileService
     private readonly ILogger _logger;
     private readonly Stopwatch _sw;
 
-    public FileService(IConfiguration configuration, ILogger<FileService> logger)
+    public FileService(IOptions<BlobStorageConfigs> options, ILogger<FileService> logger)
     {
         _containerClient = new BlobContainerClient(
-            new Uri(configuration["ContainerUri"]),
-            new AzureSasCredential(configuration["SAS"])
+            new Uri(options.Value.ContainerUri),
+            new AzureSasCredential(options.Value.RWD_SAS)
         );
 
         _logger = logger;
